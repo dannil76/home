@@ -1,0 +1,27 @@
+[user]
+	name = Daniel Pihlstrom
+	email = sciolist.se@gmail.com
+[alias]
+	c = commit
+	po = push origin
+	co = checkout
+	cp = cherry-pick
+	m = merge
+	rh = reset --hard
+	s = status
+	st = status
+[core]
+	editor = "~/bin/gvim"
+	autocrlf = input
+[merge]
+	tool = npp
+[merge]
+  tool = mvim
+[mergetool "mvim"]
+  cmd = mvim "$MERGED"
+[mergetool "npp"]
+	cmd = 'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst \"$MERGED\"
+	keepBackup = false
+[mergetool "diffmerge"]
+	cmd = "'C:/Program Files (x86)/Microsoft Visual Studio 10.0/Common7/IDE/diffmerge.exe' //ignorespace //ignoreeol //merge \"${REMOTE//\\//\\\\}\" \"${LOCAL//\\//\\\\}\" \"${BASE//\\//\\\\}\" \"${MERGED//\\//\\\\}\" \"Remote\" \"Local\" \"Base\""
+	keepBackup = false

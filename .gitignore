@@ -1,0 +1,11 @@
+/*
+!.gemrc
+!.git*
+!.vim
+!.vimrc
+!bin
+!cmdrc.bat
+!README.md
+*.swp
+.DS_Store
+

@@ -1,0 +1,14 @@
+#!ruby
+require 'slop'
+require 'albacore'
+opts = Slop.parse do
+  on :m, :mode=, 'Build mode', default: :Debug
+  on :sln=, 'Solution file'
+end
+solution = opts[:sln]
+opts.parse do |arg|; solution = arg; end
+ms = MSBuild.new
+ms.properties :configuration => opts[:mode]
+ms.solution = solution
+ms.execute
+puts "\n#{solution} built successfully."
