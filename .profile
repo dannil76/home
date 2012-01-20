@@ -1,8 +1,9 @@
-if [ -x ~/.bash_profile ]; then
+
+if [ ~/.bash_profile ]; then
   source ~/.bash_profile
 fi
 
-if [ -x ~/.bashrc ]; then
+if [ ~/.bashrc ]; then
   source ~/.bashrc
 fi
 
