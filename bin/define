@@ -1,0 +1,63 @@
+#!/usr/bin/env ruby
+require 'nokogiri'
+require 'open-uri'
+
+w = open("http://dictionary.reference.com/browse/#{ARGV.join('+')}")
+doc = Nokogiri.parse(w.read)
+
+entries = doc.css(".lunatext > .luna-Ent").map do |entry|
+  result = {}
+  result[:title] = entry.css("h2.me").text.strip
+  result[:etymology] = entry.css(".ety").text.strip
+  result[:related_forms] = entry.css(".secondary-bf").map do |form|
+    [form.text.strip, form.next.text.strip]
+  end
+
+  result[:entries] = []
+  entry.css(".pbk").each do |subentry|
+    sub = {}
+    sub[:type] = subentry.css(".pg").text.strip
+    sub[:descriptions] = subentry.css(".luna-Ent").map do |desc|
+      if desc.css(".dndata").size > 0
+        desc = desc.css(".dndata")
+      end
+      desc.text.strip
+    end
+    result[:entries] << sub
+  end
+  result
+end
+
+entry = entries.first
+
+if entry.nil?
+  puts "No entries found."
+  exit
+end
+
+
+entry[:entries].each do |sub|
+  puts "#{entry[:title]}, #{sub[:type]}"
+
+  sub[:descriptions].each_with_index do |text, i|
+    pfx = "#{i.succ}. "
+    pad = pfx.size.succ
+
+    i = pfx.size
+    text.gsub(/\r?\n/, " ").split(/\s/).each do |word|
+      word += " "
+      if i + word.size > 80
+        i = 0
+        word = "\n".ljust(pad) + word
+      end
+      i += word.size
+      pfx << word
+    end
+    puts pfx
+  end
+  puts ""
+end
+
+
+
+
