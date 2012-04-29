@@ -12,7 +12,7 @@
 	st = status
 [core]
 	editor = "~/bin/gvim"
-	autocrlf = true
+	autocrlf = input
 [merge]
 	tool = npp
 [merge]
