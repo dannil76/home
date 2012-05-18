@@ -9,5 +9,5 @@ CYAN='\e[1;36m'
 NC='\e[0m'              # No Color
 
 
-export PS1='\e[0;31m\w:\e[0m '
+export PS1="\[\e[0;31m\]\w:\[\e[0;0m\] "
 
